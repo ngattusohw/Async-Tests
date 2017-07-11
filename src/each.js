@@ -70,15 +70,31 @@ var square = function (num, doneCallback) {
 
 };
 
-// Square each number in the array [1, 2, 3, 4]
-async.each([1, 2, 3, 4], square, function (err,result) {
-  // Square has been called on each of the numbers
-  // so we're now done!
+function init_query(){
+  request({
+        url: "https://httpbin.org/get",
+        json: true,
+        headers: {
+                "accept": "application/json",
+                "Content-Type": "application/json",
+                "accept-language": "en-US,en;q=0.8",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+        }
+      },  function (error, response, body) {
 
-  console.log("Finished!");
+              // Square each number in the array [1, 2, 3, 4]
+              async.each([1, 2, 3, 4], square, function (err,result) {
+                // Square has been called on each of the numbers
+                // so we're now done!
 
-  for(var x in holder){
-    console.log(holder[x])
-  }
+                console.log("Finished!");
 
-});
+                for(var x in holder){
+                  console.log(holder[x])
+                }
+
+              });
+          });
+}
+
+init_query();
