@@ -41,7 +41,10 @@ var square = function (num, doneCallback) {
             if (!error && response.statusCode === 200) {
             	console.log(num + " " + body);
             	// Nothing went wrong, so callback with a null error.
-              if(num == 2){
+              if(num != 2){
+                holder.push(num);
+                return doneCallback(null);
+              }else{
                 request({
                   url: "https://httpbin.org/get",
                   json: true,
@@ -56,11 +59,7 @@ var square = function (num, doneCallback) {
                     holder.push(num);
                     return doneCallback(null);
                 });
-              }else{
-                holder.push(num);
-                return doneCallback(null);
               }
-              
             }else{
             	return doneCallback("error")
             }
