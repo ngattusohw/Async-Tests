@@ -41,7 +41,26 @@ var square = function (num, doneCallback) {
             if (!error && response.statusCode === 200) {
             	console.log(num + " " + body);
             	// Nothing went wrong, so callback with a null error.
-  				return doneCallback(null,"test " + num);
+              if(num == 2){
+                request({
+                  url: "https://httpbin.org/get",
+                  json: true,
+                  headers: {
+                          "accept": "application/json",
+                          "Content-Type": "application/json",
+                          "accept-language": "en-US,en;q=0.8",
+                          "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+                  }
+                },function(error, response, body){
+                    num = 600;
+                    holder.push(num);
+                    return doneCallback(null);
+                });
+              }else{
+                holder.push(num);
+                return doneCallback(null);
+              }
+              
             }else{
             	return doneCallback("error")
             }
@@ -57,5 +76,9 @@ async.each([1, 2, 3, 4], square, function (err,result) {
   // so we're now done!
 
   console.log("Finished!");
-  console.log(result);
+
+  for(var x in holder){
+    console.log(holder[x])
+  }
+
 });

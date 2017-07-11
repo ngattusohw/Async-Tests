@@ -1,4 +1,5 @@
 var async = require('async');
+var request = require('request');
 
 var square = function (num, doneCallback) {
   // Call back with no error and the result of num * num
