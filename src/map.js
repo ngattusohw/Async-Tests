@@ -6,8 +6,17 @@ var square = function (num, doneCallback) {
   return doneCallback(null, num * num);
 };
 
+var circle = function(num, doneCallback){
+	return doneCallback(null, num * 3.14);
+};
+
+
 // Square each number in the array [1, 2, 3, 4]
 async.map([1, 2, 3, 4], square, function (err, results) {
+	async.map([1, 2, 3, 4], circle, function (err, results) {
+		console.log("Finished circle");
+		console.log(results);
+	});
   // Square has been called on each of the numbers
   // so we're now done!
   console.log("Finished!");
