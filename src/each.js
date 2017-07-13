@@ -85,11 +85,14 @@ function init_query(){
               async.each([1, 2, 3, 4], square, function (err,result) {
                 // Square has been called on each of the numbers
                 // so we're now done!
+                if(err==null){
+                  console.log("Finished!");
 
-                console.log("Finished!");
-
-                for(var x in holder){
-                  console.log(holder[x])
+                  for(var x in holder){
+                    console.log(holder[x])
+                  }
+                }else{
+                  console.log("Error...");
                 }
 
               });
