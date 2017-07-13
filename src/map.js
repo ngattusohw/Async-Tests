@@ -13,3 +13,11 @@ async.map([1, 2, 3, 4], square, function (err, results) {
   console.log("Finished!");
   console.log(results);
 });
+
+/*
+
+Output should be :: 
+Finished!
+[ 1, 4, 9, 16 ]
+
+*/
