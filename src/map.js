@@ -31,6 +31,7 @@ Finished!
 
 */
 
+//THIS DONT WORK
 var first_array = [1,2,3,4,5,6,7];
 var second_array = [7,6,5,4,3,2,1];
 
@@ -39,7 +40,21 @@ var test = function(data,doneCallback){
   return doneCallback(null,data.first_data * data.second_data);
 }
 
-async.mapLimit({first_data: first_array,second_data: second_array}, 5, test, function(err,results){
+async.mapLimit({first_data: first_array,second_data: second_array}, 5, test, function(err,results){ //shit i was hoping this was gonna work
   console.log("Finished yo");
+  console.log(results);
+});
+///
+
+var first_arr = [1,2,3,4,5,6,7];
+var second_arr = [7,6,5,4,3,2,1];
+
+var test2 = function(data,doneCallback){
+  console.log("data " + this.data);
+  return doneCallback(null,data);
+}
+
+async.mapLimit(first_arr, 5, test2.bind({data: second_arr}), function(err,results){ //shit i was hoping this was gonna work
+  console.log("Finished 2");
   console.log(results);
 });
