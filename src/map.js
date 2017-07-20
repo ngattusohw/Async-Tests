@@ -30,3 +30,16 @@ Finished!
 [ 1, 4, 9, 16 ]
 
 */
+
+var first_array = [1,2,3,4,5,6,7];
+var second_array = [7,6,5,4,3,2,1];
+
+var test = function(data,doneCallback){
+  console.log("First data" + data);
+  return doneCallback(null,data.first_data * data.second_data);
+}
+
+async.mapLimit({first_data: first_array,second_data: second_array}, 5, test, function(err,results){
+  console.log("Finished yo");
+  console.log(results);
+});
