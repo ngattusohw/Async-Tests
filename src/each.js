@@ -100,3 +100,14 @@ function init_query(){
 }
 
 init_query();
+
+//Testing JSON.stringify
+
+var array1 = [1,2,3,4,5,6,7];
+var array2 = [7,6,5,4,3,2,1];
+
+var obj = JSON.stringify({data1: array1, data2: array2});
+var get_arr1 = obj.data1;
+for(var x in get_arr1){
+  console.log(obj.data1[x]);
+}
