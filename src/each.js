@@ -1,7 +1,10 @@
 // Include the async package
 // Make sure you add "async" to your package.json
 var async = require("async");
-var request = require("request")
+var request = require("request");
+require("./mutex.js");
+
+var mutex = new Mutex();
 
 // // 1st para in async.each() is the array of items
 // async.each(items,
@@ -22,6 +25,12 @@ var request = require("request")
 
 
 //https://httpbin.org/get
+
+//example of how to use mutex lock
+
+mutex.enqueue(function(callback) {init_query(() => {console.log('called 1'); callback()})});
+mutex.enqueue(function(callback) {setTimeout(() => {console.log('called 2'); callback()}, 500)});
+
 
 var holder = [];
 
@@ -69,7 +78,7 @@ var square = function (num, doneCallback) {
 
 };
 
-function init_query(){
+function init_query(callback){
   request({
         url: "https://httpbin.org/get",
         json: true,
@@ -91,23 +100,26 @@ function init_query(){
                   for(var x in holder){
                     console.log(holder[x])
                   }
+                  callback();
                 }else{
                   console.log("Error...");
+                  callback();
                 }
 
               });
           });
 }
 
-init_query();
+// mutex.enqueue(init_query());
+mutex.enqueue(function(callback) {setTimeout(() => {console.log('called 3'); callback()}, 500)});
 
 //Testing JSON.stringify
 
-var array1 = [1,2,3,4,5,6,7];
-var array2 = [7,6,5,4,3,2,1];
+// var array1 = [1,2,3,4,5,6,7];
+// var array2 = [7,6,5,4,3,2,1];
 
-var obj = JSON.stringify({data1: array1, data2: array2});
-var get_arr1 = obj.data1;
-for(var x in get_arr1){
-  console.log(obj.data1[x]);
-}
+// var obj = JSON.stringify({data1: array1, data2: array2});
+// var get_arr1 = obj.data1;
+// for(var x in get_arr1){
+//   console.log(obj.data1[x]);
+// }
