@@ -29,7 +29,15 @@ var mutex = new Mutex();
 //example of how to use mutex lock
 
 mutex.enqueue(function(callback) {init_query(() => {console.log('called 1'); callback()})});
-mutex.enqueue(function(callback) {setTimeout(() => {console.log('called 2'); callback()}, 500)});
+
+mutex.enqueue(function(callback) {setTimeout(() => {console.log('called 2'); callback()}, 5000)});
+
+mutex.enqueue(function(callback){
+  init_query(function(){
+    console.log("called 2.5");
+    callback();
+  })
+});
 
 
 var holder = [];
@@ -73,8 +81,6 @@ var square = function (num, doneCallback) {
             	return doneCallback("error")
             }
         });
-
-
 
 };
 
